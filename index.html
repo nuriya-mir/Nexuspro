@@ -81,6 +81,13 @@
     margin-bottom: 52px;
   }
 
+  .header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
   .logo { width: 56px; height: 56px; flex-shrink: 0; }
 
   .brand-name {
@@ -464,22 +471,27 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: var(--teal);
-    color: var(--bg-deep);
+    background: transparent;
+    color: var(--teal);
     font-family: 'Unbounded', sans-serif;
     font-size: 10px;
     font-weight: 600;
     letter-spacing: 1px;
     text-transform: uppercase;
-    padding: 12px 24px;
-    border: none;
+    padding: 10px 20px;
+    border: 1px solid var(--teal-border);
     cursor: pointer;
     border-radius: 2px;
-    transition: opacity 0.2s, transform 0.2s;
-    margin-top: 28px;
+    transition: background 0.2s, color 0.2s, transform 0.2s;
   }
-  .pdf-btn:hover { opacity: 0.85; transform: translateY(-1px); }
+  .pdf-btn:hover {
+    background: var(--teal);
+    color: var(--bg-deep);
+    transform: translateY(-1px);
+  }
   .pdf-btn svg { flex-shrink: 0; }
+
+  @media print {
     body::before { display: none; }
     .pdf-btn { display: none !important; }
     .drag-handle { display: none !important; }
@@ -506,12 +518,18 @@
 
 <header>
   <div class="container">
+    <div class="header-row">
     <div class="header-inner">
       <img class="logo" src="data:image/png;base64,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" alt="NexusPro">
       <div>
         <div class="brand-name">NexusPro</div>
         <div class="brand-tagline">Экосистема роста продаж</div>
       </div>
+    </div>
+    <button class="pdf-btn" onclick="downloadPDF()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Скачать PDF
+    </button>
     </div>
     <div class="doc-label"><span class="doc-dot"></span>Стратегический документ · 2026–2029</div>
     <h1 class="hero-title">От точки А<br>к точке <span class="ac">Б</span></h1>
@@ -806,31 +824,20 @@
       <div class="footer-brand">NexusPro · 2026</div>
       <div class="footer-note">Стратегический документ · Конфиденциально</div>
     </div>
-    <div style="margin-top:24px;">
-      <button class="pdf-btn" onclick="downloadPDF()">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        Скачать PDF
-      </button>
-
-      <!-- Confirmation modal -->
-      <div id="pdfModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:500;align-items:center;justify-content:center;">
-        <div style="background:var(--surface-2);border:1px solid var(--teal-border);padding:36px 40px;max-width:420px;width:90%;border-radius:3px;position:relative;">
-          <div style="font-family:'Unbounded',sans-serif;font-size:10px;color:var(--teal);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;">Скачать документ</div>
-          <div style="font-size:15px;color:var(--white);font-weight:500;margin-bottom:10px;line-height:1.4;">NexusPro — Стратегия роста 2026–2029</div>
-          <div style="font-size:13px;color:var(--text-muted);margin-bottom:28px;line-height:1.7;">Вы скачаете PDF-версию стратегического документа. Файл будет сохранён на ваше устройство.</div>
-          <div style="display:flex;gap:10px;">
-            <button class="confirm-btn" onclick="confirmDownload()" style="font-family:'Unbounded',sans-serif;font-size:10px;letter-spacing:1px;background:var(--teal);color:var(--bg-deep);border:none;padding:11px 24px;cursor:pointer;border-radius:1px;flex:1;transition:opacity 0.2s;">Скачать</button>
-            <button onclick="closeModal()" style="font-family:'Unbounded',sans-serif;font-size:10px;letter-spacing:0.5px;background:transparent;color:var(--text-muted);border:1px solid var(--border);padding:11px 20px;cursor:pointer;border-radius:1px;">Отмена</button>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </footer>
 
-
-
-  <button class="export-btn" onclick="exportPage()">Сохранить и скачать</button>
+<!-- Confirmation modal -->
+<div id="pdfModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:500;align-items:center;justify-content:center;">
+  <div style="background:var(--surface-2);border:1px solid var(--teal-border);padding:36px 40px;max-width:420px;width:90%;border-radius:3px;position:relative;">
+    <div style="font-family:'Unbounded',sans-serif;font-size:10px;color:var(--teal);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;">Скачать документ</div>
+    <div style="font-size:15px;color:var(--white);font-weight:500;margin-bottom:10px;line-height:1.4;">NexusPro — Стратегия роста 2026–2029</div>
+    <div style="font-size:13px;color:var(--text-muted);margin-bottom:28px;line-height:1.7;">Вы скачаете PDF-версию стратегического документа. Файл будет сохранён на ваше устройство.</div>
+    <div style="display:flex;gap:10px;">
+      <button class="confirm-btn" onclick="confirmDownload()" style="font-family:'Unbounded',sans-serif;font-size:10px;letter-spacing:1px;background:var(--teal);color:var(--bg-deep);border:none;padding:11px 24px;cursor:pointer;border-radius:1px;flex:1;transition:opacity 0.2s;">Скачать</button>
+      <button onclick="closeModal()" style="font-family:'Unbounded',sans-serif;font-size:10px;letter-spacing:0.5px;background:transparent;color:var(--text-muted);border:1px solid var(--border);padding:11px 20px;cursor:pointer;border-radius:1px;">Отмена</button>
+    </div>
+  </div>
 </div>
 
 <script>

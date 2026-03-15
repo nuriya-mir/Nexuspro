@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NexusPro — Стратегия роста</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;600;700;900&family=Geologica:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal: #00B8A2;
+    --teal-subtle: rgba(0, 184, 162, 0.1);
+    --teal-border: rgba(0, 184, 162, 0.22);
+
+    --bg: #181C1F;
+    --bg-deep: #13171A;
+    --surface: #1E2328;
+    --surface-2: #232830;
+    --surface-3: #1A1F24;
+
+    --text: #C8D4D8;
+    --text-muted: #6E828A;
+    --text-dim: #2E3C42;
+    --white: #ECF2F4;
+
+    --border: rgba(255,255,255,0.06);
+    --border-hover: rgba(0,184,162,0.22);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Geologica', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,184,162,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,184,162,0.02) 1px, transparent 1px);
+    background-size: 64px 64px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 40px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ─── HEADER ─── */
+  header {
+    padding: 56px 0 72px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  header::after {
+    content: '';
+    position: absolute;
+    top: -160px; right: -160px;
+    width: 480px; height: 480px;
+    background: radial-gradient(circle, rgba(0,184,162,0.06) 0%, transparent 68%);
+    pointer-events: none;
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    margin-bottom: 52px;
+  }
+
+  .logo { width: 56px; height: 56px; flex-shrink: 0; }
+
+  .brand-name {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -0.3px;
+  }
+
+  .brand-tagline {
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    margin-top: 5px;
+  }
+
+  .doc-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    margin-bottom: 28px;
+    font-family: 'Unbounded', sans-serif;
+  }
+
+  .doc-dot {
+    width: 4px; height: 4px;
+    background: var(--teal);
+    border-radius: 50%;
+    animation: blink 2.4s ease-in-out infinite;
+  }
+
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+
+  .hero-title {
+    font-family: 'Unbounded', sans-serif;
+    font-size: clamp(32px, 5vw, 50px);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -2px;
+    color: var(--white);
+    margin-bottom: 18px;
+  }
+
+  .hero-title .ac { color: var(--teal); }
+
+  .hero-sub {
+    font-size: 14px;
+    color: var(--text-muted);
+    max-width: 440px;
+    line-height: 1.7;
+  }
+
+  /* ─── SECTION ─── */
+  section {
+    padding: 72px 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .eyebrow {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 9px;
+    color: var(--teal);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    font-weight: 400;
+  }
+
+  .sec-title {
+    font-family: 'Unbounded', sans-serif;
+    font-size: clamp(20px, 2.6vw, 28px);
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -0.8px;
+    margin-bottom: 36px;
+    line-height: 1.2;
+  }
+
+  /* ─── VISION ─── */
+  .vision-lead {
+    font-size: 15px;
+    color: var(--text);
+    font-weight: 400;
+    margin-bottom: 32px;
+    padding: 22px 28px;
+    background: var(--surface);
+    border-left: 2px solid var(--teal);
+    line-height: 1.9;
+  }
+
+  .vision-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+  }
+
+  @media (max-width: 620px) { .vision-grid { grid-template-columns: 1fr; } }
+
+  .vblock {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 24px 28px;
+    transition: background 0.25s, border-color 0.25s;
+  }
+
+  .vblock:hover {
+    background: var(--surface-2);
+    border-color: var(--border-hover);
+  }
+
+  .vblock-title {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--teal);
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+
+  .vblock p {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.85;
+  }
+
+  /* ─── STEPS ─── */
+  .steps { display: grid; gap: 2px; }
+
+  .step {
+    display: grid;
+    grid-template-columns: 68px 1fr;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    transition: background 0.25s, border-color 0.25s;
+  }
+
+  .step:hover {
+    background: var(--surface-2);
+    border-color: var(--border-hover);
+  }
+
+  .step-n {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Unbounded', sans-serif;
+    font-size: 16px;
+    font-weight: 900;
+    color: var(--text-dim);
+    border-right: 1px solid var(--border);
+    transition: color 0.25s;
+    flex-shrink: 0;
+  }
+
+  .step:hover .step-n { color: var(--teal); }
+
+  .step-body { padding: 20px 26px; }
+
+  .step-title {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 5px;
+  }
+
+  .step-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.75;
+  }
+
+  /* ─── MONTHS — VERTICAL ─── */
+  .months { display: flex; flex-direction: column; gap: 32px; }
+
+  .month { background: var(--surface); border: 1px solid var(--border); overflow: hidden; }
+
+  .month-head {
+    padding: 18px 28px;
+    background: var(--surface-3);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+  }
+
+  .month-num {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 9px;
+    color: var(--teal);
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+
+  .month-name {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -0.3px;
+  }
+
+  .month-body {
+    padding: 20px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    min-height: 60px;
+  }
+
+  .month-body.drag-over {
+    background: rgba(0,184,162,0.04);
+    outline: 1px dashed var(--teal-border);
+    outline-offset: -4px;
+  }
+
+  .task {
+    display: grid;
+    grid-template-columns: 28px 1fr 28px;
+    align-items: start;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    cursor: grab;
+    user-select: none;
+    transition: background 0.15s, opacity 0.15s;
+    border-radius: 2px;
+  }
+
+  .task:last-child { border-bottom: none; }
+
+  .task:hover { background: rgba(255,255,255,0.02); }
+
+  .task.dragging {
+    opacity: 0.35;
+    cursor: grabbing;
+  }
+
+  .task.drag-placeholder {
+    border: 1px dashed var(--teal-border);
+    background: rgba(0,184,162,0.03);
+    border-radius: 2px;
+    min-height: 48px;
+  }
+
+  .drag-handle {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 4px;
+    opacity: 0;
+    transition: opacity 0.2s;
+    cursor: grab;
+    margin-top: 6px;
+  }
+
+  .task:hover .drag-handle { opacity: 1; }
+
+  .drag-handle svg { display: block; }
+
+  .task-dot {
+    width: 4px; height: 4px;
+    background: var(--teal);
+    border-radius: 50%;
+    margin-top: 9px;
+    flex-shrink: 0;
+  }
+
+  .task-text {
+    font-size: 13px;
+    color: var(--white);
+    line-height: 1.6;
+    margin-bottom: 3px;
+  }
+
+  .task-with {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-style: italic;
+    display: block;
+  }
+
+  .task-result {
+    font-size: 11px;
+    color: var(--teal);
+    margin-top: 3px;
+    display: block;
+  }
+
+  /* ─── TEAM ─── */
+  .team { display: grid; grid-template-columns: repeat(2,1fr); gap: 2px; }
+
+  @media (max-width: 560px) { .team { grid-template-columns: 1fr; } }
+
+  .tcard {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 24px 28px;
+    transition: background 0.25s, border-color 0.25s;
+  }
+
+  .tcard:hover {
+    background: var(--surface-2);
+    border-color: var(--border-hover);
+  }
+
+  .tcard-role {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--teal);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tcard-items { display: flex; flex-direction: column; gap: 9px; }
+
+  .tcard-item {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    padding-left: 14px;
+    position: relative;
+  }
+
+  .tcard-item::before {
+    content: '–';
+    position: absolute;
+    left: 0;
+    color: var(--text-dim);
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    padding: 44px 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .footer-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .footer-brand {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-dim);
+  }
+
+  .footer-note { font-size: 10px; color: var(--text-dim); letter-spacing: 1px; }
+
+
+
+  /* ─── REVEAL ─── */
+  .r { opacity:0; transform:translateY(14px); animation: rev 0.5s ease forwards; }
+  @keyframes rev { to { opacity:1; transform:translateY(0); } }
+  .r1{animation-delay:.05s} .r2{animation-delay:.1s} .r3{animation-delay:.15s}
+  .r4{animation-delay:.2s} .r5{animation-delay:.25s} .r6{animation-delay:.3s}
+  .r7{animation-delay:.35s} .r8{animation-delay:.4s} .r9{animation-delay:.45s}
+  .r10{animation-delay:.5s}
+
+  /* ─── PDF BUTTON ─── */
+  .pdf-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--teal);
+    color: var(--bg-deep);
+    font-family: 'Unbounded', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 12px 24px;
+    border: none;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: opacity 0.2s, transform 0.2s;
+    margin-top: 28px;
+  }
+  .pdf-btn:hover { opacity: 0.85; transform: translateY(-1px); }
+  .pdf-btn svg { flex-shrink: 0; }
+    body::before { display: none; }
+    .pdf-btn { display: none !important; }
+    .drag-handle { display: none !important; }
+    :root {
+      --bg: #fff;
+      --surface: #f5f5f5;
+      --surface-2: #efefef;
+      --surface-3: #e8e8e8;
+      --text: #222;
+      --text-muted: #555;
+      --text-dim: #999;
+      --white: #111;
+      --border: rgba(0,0,0,0.1);
+      --teal: #008f7e;
+    }
+    section { break-inside: avoid; }
+    .step, .vblock, .month, .tcard { break-inside: avoid; }
+    header::after { display: none; }
+  }
+
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <div class="header-inner">
+      <img class="logo" src="data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCADhAOEDASIAAhEBAxEB/8QAHAABAAMBAQEBAQAAAAAAAAAAAAQGBwUIAgMB/8QASBAAAQMCAgYEDAQEAwcFAAAAAQACAwQFBhEHEiExQVETFCJhIzI1UlRxc4GTssHRQmKR8BVysdIzofEkJjRDU8LhVWN0gpL/xAAbAQEAAgMBAQAAAAAAAAAAAAAAAgQDBQYBB//EADQRAAICAAIHBQgCAwEBAAAAAAABAgMEEQUSITFBUWETkaGx8AYUIiMycYHB0eEVJFJCYv/aAAwDAQACEQMRAD8A8h3OurRcqoCsqABM/IdKeZ71H6/Xem1PxXfdLp5TqvbP+YqMgJPX6702p+K77p1+u9Nqfiu+6jIgJPX6702p+K77p1+u9Nqfiu+6jIgJPX6702p+K77p1+u9Nqfiu+6jIgJPX6702p+K77p1+u9Nqfiu+6jIgJPX6702p+K77p1+u9Nqfiu+6jIgJPX6702p+K77p1+u9Nqfiu+6jIgJPX6702p+K77p1+u9Nqfiu+6jIgJPX6702p+K77p1+u9Nqfiu+6jIgJPX6702p+K77p1+u9Nqfiu+6jIgJPX6702p+K77p1+u9Nqfiu+6jIgJPX6702p+K77p1+u9Nqfiu+6jIgJPX6702p+K77p1+u9Nqfiu+6jIgJPX6702p+K77p1+u9Nqfiu+6jIgNK6xUf8AXl//AGUX5IgKHdPKdV7Z/wAxUZSbp5TqvbP+YqMgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiA0VERAUO6eU6r2z/mKjKTdPKdV7Z/zFRkAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQGioiICh3TynVe2f8xUZSbp5TqvbP+YqMgCIiAIiIAiIgCIrjo0wLWYur+klMlNaoXeHqANrj5jM9hd37hvPAGcISslqx3lbF4unB0yuullFFORer7bhHCtvpRTU1gt2oG6pMlO2R7h+ZzgSVStJWi23XCikuGGaWOjr4xrGmj2RTjkBuY7llsPHfmrs9HWRjmnmcphPbfBX3qucXBPc3ll+eXiYKi+pY5IpXxSsdHIxxa9jhkWkbwRwKlMtdzexr2W6sc1wza4QOII57lQSb3HZOcYrNshopv8Iuv/plb8B32UJGmt4jOMvpeYRbNor0XU8lLHecVUxeZMnU9C8kADeHSZbcz5vLfvyGmVGFsLz0vVpcPWow5EBraRjdX1EAEHvCvVaPsnHWbyOP0h7a4PC3uqEXPLe1ll+OfkeTUWiaV9HcmG5XXS0NkntD3doHtOpieDjxbyd7jtyJztVLK5Vy1ZHTYDH0Y+hX0PNPw6PqERFjLgREQBERAEREBoqIiAod08p1Xtn/ADFRlJunlOq9s/5ioyAIiIAiIgCIrXo7wdU4orjJIXQW2F2U8w3uO/Ub+b+g28gZQhKctWO8r4rFVYWp22vKKP00bYJq8V1/SS69Pa4XeHnA2uPmM5u79wG3kD6DYbVh2yBrehoLdRx+prG/Uk+8k8SVCY+2Yfsmq0Q0Nvo4/U1jfqSfeSeJKxjFeIrxpCv0VntEMjaIPzihzy1sv+ZIeH07zv26UMJDJbZM+b3PE+0uJcpvUoh3JfuT8PP7xrpGvt8vHS2OesoqGiOvGISQ5wBHbky4bth2DPLitP0aY7psVUPQVBbBdYW5zQg5CQeezu5jh+i/uC8K23DVndRRxsqJp25Vcz2Z9Lzbl5vd+qzTSBhCswpcmYiw4+WOjZJrjUObqV3LvYd2Z9R7/Mr6fmyeee9GVrROlF7hVHs3H6Jc/v8Afr4PYXXSzgCO/RPvFojDLqxuckY2CpA/7xwPHceCzPBeJ5rPP/DLnrilDi3tA60Ds9uzflnvHBavo9xzSYloCypMdPcYGa08W4OaN7293McP0KwnEdxddr9XXN2f+0zvkAO8AnYPcMgsWJlCDjdU9rNl7P04qyFujsbHOMMsnxWe7J8VxXduLXjvFwmD7ZaZs4zsmnYfG/K08uZ4+rfbNEejsU3Q4gxBB4fY+lpXjxOT3jzuQ4bzt3R9FWARTGG/X6AGbY+lpXjxOT3jnyHDedu6643xdQ4XtvWKjKWqkBFPTg5GQ8zyaOJWWqvP51/4RQ0npB5f4zRizb2Skt7fFJ8ub/RLx3jCgwpbOsVB6arkBFPTB2RkPM8mjiVjNm0jYooMQfxuunnqqWqeRJTvJELmjLMRjc0t2bvfnmvvDFiu+kLEMt3vE8jaMP8ADTAZZgbooxw+m/aTt1y8Yastzw62xSUjIqSJuVP0YydCeDmnnz57c0+diPji8kt3Uxwho3QiWFvh2s5fW/8Alcl6T47NiOxZrtbMR2VtXSPZVUdQwtex4B3jtMe08du0LENKuAJMPTvutqY+S0yO7Td7qYngebeR9x4Ex6Oqv+jHE7oZWmajl2uZmRHUx5+M3k4f5bt2/arRdrbiGziqpHR1NJO0sex7c+HaY9vPbtH0UvhxUdSeySMKhf7PXrE4aWvRPua5Pk1wf9o8uIr5pPwM+wTOulra59qkd2m7zTuJ2A8257j7jwJoa1Flcq5asj6PgsbTjaVdS80/Do+oREUC2EREAREQGioiICh3TynVe2f8xUZSbp5TqvbP+YqMgCIiAIiIAvSGC4IaHCdrp6cMDOqxvJbuc5zQ5zveSSvN613RViyGqt8NirJNSrgbqwF26Vg3Ad4GzLkPWr+AnGNjT4nK+1uFtvwsZQ2qLzfdv/H7KzpPxHcLziGSzyk0VFSzmNsb8wCQcukf7to5A7O/T8DYft2HLU1lG5lRNO0Olqhl4Xll+XkPeuVj7ClNiOl6eHVhuUTco5DsDx5rvoeCpmBcW1eGq11ivjZG0jX6vbHap3fVvd7x3518m9yt257maiyH+R0ZGrBfDqfVDn168/7yLtpCxtVYaraGGC3maOU68skmxrmjYWNI/FxzO7ZsOa7cWIrVcMMT3iJ7J6JsD3SseASMm5uY4c+GXf3r87xRW+/Wp1JVtbPTytDmPaRmDlse089u/wCixjENuvOE5qu2dYf1Ktbq9I3YyZoII9ThxHeeB25brbKW5b4vwKejtHYPSNUKV8FsXt/+lnt/K9dK/HPLFOZoXuhftyMZLcgRkQMuGRIWq6L8Dtpuivl7gzn2OpqZ4/w+T3DzuQ4b9+78dGuC20/RXq8xZzeNTU7h/h8nuHnchw3791sxhiikw7b+mmPSVMgIggB2vPM8mjiVXw2GUF2tpuNNaXsxE/csDtb2NryXTmywXKqqYaComo6YVNSyMuihL9XXdwGa834guVxut2nrLo97qpzi1zXDLUy/CBwA5LZMCYxgxFTdDNqQXGMZyRDc8ec3PhzHBQNI2D4r3G+5W5jY7kxvabuFQBwP5uR9x4EZcVB4itTrea5Gv0FbDRGLlRioZN7Nbl/T59/Tv4MvNviwBQXB7oaWlgpg2UgarWuadV2zmXAnvJ71ycIaQJr/AIqnt8dteKJzS6GRo7UYH4pOGR7txyG3PNZdZ6a+3kxYap3S9FHM6R0T8w2J2wOc7lllu5k5bStnwpY6HDttFJSN1pHZGaYjtSu5nkOQ4fqUossu1ctiW/qR0no/BYBWuz47Jt6q/wCU3mm+vn9szo4mtFBiG1voK+PNp2xyN8aN3nN/e1Yrh29V2DcUzU9BUMuNP0vRSsiJLKgZ5At/NyPPmN9i0jY3kqnPsVikc5rj0c88e0yHdqMy4czx3bt/V0c4Njs7GXS5sD7i4ZxsO0QD+7v4Ly351y7Let7M2Bh/jdHz992xn9MP30/X3yNBqmQ1tJLSVEYfDOwxvY7iCMiF5flaGSvYHBwa4jMbj3rb9IWLIbHbJKaCTWuU7CImDfGDs1zyy4cz71hyw6QnFyUVvRsPY/C201WWSWUZZZfjPNhERa47EIiIAiIgNFREQFDunlOq9s/5ioyk3TynVe2f8xUZAEREAREQBfUb3xyNkje5j2kOa5pyII3EFfKmWRrX3mhY9oc11RGHNIzBGsNi9SzeRGclGLbNSwBjJt3ibb7i9rLgwdl24TgcR+bmOO8ccpWOcM02IKbpodWK4Rt8HJlkHjzXd3I8FRsa4Xls8/8AE7Zr9U1g7sk60Ds9m3lnuPBWfA2Lm3SNtBcHhlc0dl24TDn/ADcx7x3baFmt8m7f5nDYnBqprSGj3s4rlz2cua/RwsE4pqsO1jrLemyNpWv1e0O1Tu+rf9R36dMKOtiiMrIamMObLGSA4AjaHD7qr41w3BfafpotWKvjGTHnc8ea76HgqdhzFNww0J7ZXU75WR5hkTzk6J/L+U/+R3ozeHepZtjwYuwkNKR94wy1bV9UefVevHfpGK8S0lgoOmlPS1DwRDCDkXnmeQHErOLBabljS9SXO6TPFKHeFk3Z8o2D95evf8WO1XHGF4kuNyleKYO8JIBln+Rg4fT179M6ShtFs/5dLSU7PUGj6n/MlEniXrT2RXiey1NE19jR8V0t75dF6/SM9xlhmow7WMvNjfI2lY8OGqSXU7vXxb3n1HvumCMWwX6l6GctiuEbfCR8Hjzm93McFMttyobxbhUUz2zQSAtc1wGzm1w+izzF+HaiwVrbxZnSMp2v1hqntQO+rf8AQ96UXQ+0r2xe9CuUdJQ91xey2OyMn5P1479Whjpop5p4oYmSzkGV7W5F5AyGZ4rPNIOM31Ln2SyyOc1x1Jpo9pkO7UZlw5nju3b+Te8b3C6WmK308JhnlGrUPj3ycMmjgDx/T12LAeFW2prbjcGB1c4ZsZvEI/u/okrXe9SrdxZGjR8NHL3nGbZL6Y88uP28u5H76PsJR2hjblcmNdcHDNjDtEA/u7+C6eNsWwWCk6OItmr5W+Ci4NHnO7u7j+qi4xxRBY6Xo4tWWukHg4zuaPOd3d3FUPDVjrsT3KSurpZOr6+c0x3vPmt/eQHuCTmqkqad57RhHjZvHY95QXDn0XTzK/W1VRW1clVVSumnldrPe47SV+K7GM6eGlxNV09NE2KKMsDWtGwDUauOtVNNSaZ21E4zqjKKyTSCIiiZQiIgCIiA0VERAUO6eU6r2z/mKjKTdPKdV7Z/zFRkAREQBERAFNsPlyg/+TH8wUJF6nk8yM460XHmXvHuLBMJLTbJM4zm2eZv4ubW93M8fVvm4AweYeju11iIl2OggcPE5Od38hw9e79tHmCjCI7veIfC7HU9O8eJyc4c+Q4evdZ8XX6jw9b+nnDZKiTMQQg7XnmeQHNbWuvWfbXfg4jFYyNaWj8As297XF+t7/RFxVfKSw0PTTZPneCIYQdrzzPIDms6ttmvWMKqquL3tGw+EfsaXZbGN/exSsO2W540vElyuUr20gd4WXLLP/22fvZ69+s0lHT0dLFS00TIoYwGsYBsH/n+q9UXinrS2R4dSNmJr0NDsqmpXPe+C6evu+CMpwfiKfD9Y6zXhj2UzXlpDh2oHZ7fW07/APMd+iXO3UV4trqaoa2WCVoc1zTu5OaVCxxhKC/U3TQakVwjb4OTcHjzXfQ8FTcGYlqcO1zrJfGSMpmPLSHjtU7v7e73jvRk6H2dm2L3MWRjpKHvWE2Wx2yivNevHfecO2OkslAKWmaXOO2SV3jSHme7kFTMeYq6y59ls7i9rj0c0rNvSE7NRvdwJ47t2/8AXH+L+tPdZrG/XY86ks8W0yE/gZlvHfx3DZv7OAMGC0sbcbmxrq9wzZGdogH939ElJ2Psqty3sUwWEh79jts39MXvb5v1s7kUe44ZvdhoqW8eK5pDn9H40Ds9mf737FfMFYkgvtN0MurHXxtzkj3B485v1HBW18THsfG9jHNcNV7SMwQRuI9SyvGuFqrDtY29WV0jaVr9bsHtU7vq3v8Ace865YZ68NseKPasdXpddhiMo2f+X+n68d/dx1hJt2jdX0DA2vaO03cJgOH83I+491XwTieSzTfwy5B4pNcjtDtQOz27OWe8K94FxPT4gpehlDIrhE3OSPg8ec36jgomP8Gtu8brhbWNbcWjtMGwTjl/NyPHce5ZXrfOp3+Yw2M7JvR+kFs4Ply28uT4fbdnuO3Nfiutexwc1xYWuBzBGo3auGvqRj45HRyNcx7Tqua4ZEEcCF8rVTlrSb5na0V9lVGCeeSS7giIomUIiIAiIgNFREQFDunlOq9s/wCYqMpN08p1Xtn/ADFRkAREQBERAFqGifB8EkMWILrH0mZ1qSFw2DI+ORx3bP15ZZevTeDYqSpwnaJ4M+jNHEAA7MDJgBHuIIVzBQjKbcuBzntLirqMNGNWzWeTfT+zi41xHbsOW4zSgS1UgIghz2vPM8gOazPDVjumOr5JdLpLI2jD8pZQMs8t0cY/eXr3/OlS13a3Ywlq7yH1VNUSa0EgOTXRA7IwfwkDZl79ua2LBFRYbth6nlsg6GnjaIzTgjWhdxa4c+OfHerOfb2uM9iXA08ovReBjbh1rTnvlwXRet/cfxzbTZbTmWxUlDSx94a1o/qf8yTxKxfGmKa/Edc6ShZPBbqMiSNrM827QBI8jccyMuWeQ5nRtKmEcQ32pt8VrqGPoNcNlhcdXo3bfCuP4hls5jgDmV2rZgW3W7CNXZKYl01XA5k05ABkeRsJ5AHcOHrzKlcp2twjsivEw6Puw2ChHEW5Tsk93/Kz2t9fS5lb0cYzgvjG226FrLm0dl+4VAHEfm5j3jjlN0gYPpcRUnT02rDcom5RvI2SDzXfQ8Fh8InZVsbB0gqGvAZ0eesHZ7MsuOfJel8J0t2kw/SvxC1jbiWeEEZ2nkXcNbLflszUcPb20XCxZmfTODejLo4nCSSze7+OnNFJ0b4IZZw253ZjX3Ajwce8QD1je7v4cF0cfYrosN0fRwsZNcZW5xREnJo893d3cf1ImaRsVUGFKMRQ5VF0lbnDA45hg89/dyHH9SsDr6ypr62WsrJ3z1EztaSR5zLivLro0R7OreT0bo+/SlvveN+ngufRcl5ndsGJrzaru69ymapiqpSKnpPFmIyJAO4OAIyy3ZjhsW22avtV8tTKyk1ZqeZpa5jxnkctrXDnt3fRc/CuD7fV6NqC1XGMvbPCKgkEZse/tBwPAgED3ZLjaPsDYhw/iyqElYwWlre04bRU5g6uTfwlvE8NwzBXtKsqyT2p+Bh0jZhMarJRyhZDdyklsX55fxuq2PMJ1WGq9t9sLpWUbXh4LT2qZ31b3+49910fYso8RUvQVLWQ3KJuckY2CQec36jgrhfHWq12qetusrWUjGHpBJkQ8H8OXEndlxWA2CgrL5jT/dOnloQJulhcX59WZn4zncu7vy2rybWHsXZ7nwJ4VS0thJLFLKUN0+H2frx33/Shg+nuVJLebdHqV8LC+VrQfDtA2/8A2AGw8d3LLGl6vkp4IYnTzv1Wxt1pHbgABmT3BeU5ix0r3Rt1WFxLW8hyWHHQjGSlHibH2XxV9tU67dqjll+c9ngfCIionUhERAEREBoqIiAod08p1Xtn/MVGUm6eU6r2z/mKjIAiIgCIiALQdE2PXYcqBarm5z7TM/PWyzNO4/iHNp4j3jiDnyKcJuDzRXxWFrxVTqsWaZ6zvNnteJLI6krAyqo6hgfG9hB3jsvY7nt2H6LCqymxDopxY2aFxno5jk1xBEdVHn4ruTh+oO0Zg7ZWiLSI/Dk7LReHuls8juw49p1K48RzbzHvHEHeb3Y7ZiewuoquKOroqlofHJG4HLZ2Xsdz27D9Cr/w3rWjskji87dD2um9a1UvHquvNf0zm4TvluxNZ47lbZdZp7MkbvHifxa4c/671l2lnSC6rlfhrDUrpGvPRVFRFtMpOzo48t44EjfuGzfV8WYdxRgC8z2ymqKnq1yYYYpoM8qphPi5D8XAjft5HbqmiDRkLBBHer1A2S7SNziiJBFKD/V/M8Nw4ledpZb8GWXMy+6YHR/+25a8X9C/n7etpE0UaOWWKKO8XmNr7q8ZxxEAimB/7+/huHNdPSdjekwlRdXgLKi7TNzhhO6Mee/u5Dj6tql6VccUmDqDq8TY57xUMPQQk5iMf9R/dyHEjuKwvD9nuOLbvNcrlPK+J8mtUVDvGkd5rf3kB7gpOWplVVvMeHw8sbJ47HPKC8ei6efeyv1tVWXS4SVVVLJU1dQ/Nzjtc9x/eQAW8Yr0X0tywrQ01H0cF3oKVkTJdzZshta/1nMg8M+Sy3GWF5rLOLnazIKVrg7suOtA7PYc9+We48FreiDSHDiWFlmu74470xvYccg2raBvHJ44jjvHEDFVBQm4Wb2bLSmItsorxWCfww35cPuuS4/wULRtjaswlcnYbxI2aOiZIWHXB16R3q4s5j3jv2q63O3WyzyXesrImUTGB/Sg5hwO7Vy3k7Mst642lLR1Bi6hNTTMZT3iFvgZjsEo8x/dyPD1LDrVY8YYgusGCiKodRkcTBMSI6UE9pzuQ5c89m/bPXnT8GWfIo+74TSv+wpajX1r9r147+leLlf9KWKo7fb4nRUUZJiiJ7ELNxkkI4/6Dv2zBuFbdhe0toKAazzk6edw7cruZ7uQ4fqTNwVg+gwnZhb6CMPccnVFQ7LWmdzPIchw/UnJtMmkkVZmw7hyoHVhmyrq4z/i82MPm8zx3DZv9SVK157ZMwznZpSxYTCLVqj6zf6RH0w6QWVwmw7Ypw6k8WqqWH/F/I0+bzPHdu35QiKhZY7JZs7LBYKrB1Kutf31CIigWwiIgCIiA0VERAUO6eU6r2z/AJioyk3TynVe2f8AMVGQBERAEREAREQBabob0lyYXmbZ71JJLZZHdl+Rc6lceIG8sPFo9Y25g5kilCbg80V8VhasVU6rVmn6zR7boKijudJHV0M8NZTu7TJYnB7fWCFSdKWki14ToJKahngrb0/sx07Xhwh/NJluy83ee4bV5djlliDhHI9geMnBriNYcivhWpYxtZJHOUey1ULdayetFcMsu/aSbpX1l0uE9wuFRJU1U79eSR5zLj++G4BT6TE98paaOmp64xRRjVa1sbMgP0XHRVVOUXmmdNOiqcVGUU0uh3H4sxA9jmPuJc1wyc0xMII5blxoZZYZmTwyPiljcHsew6rmuBzBBG4r4RJTlLe8xXRVVmoRSz5LI9H6ItKdHfKRlpxHVwUl2jybHNI4MjqhuG07A/u48OQ1CYw08T6qZ0cMYbm+V5DWgDiXHZkvEC+3SyOjbG6R5Y3xWl2weoKzDFyismszm8X7MVW2udU9VPhln3bUbFpo0pMuLJcO4YqSaM5tq6xhy6bmxh8zm78XDZtdjSIq9lkrHmzfYLBVYOpV1L+X9wiIoFsIiIAiIgCIiA0VERAUO6eU6r2z/mKjKTdPKdV7Z/zFRkAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQGioiICh3TynVe2f8xUZSbp5TqvbP8AmKjIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgNFREQFDunlOq9s/5ioyk3TynVe2f8xUZAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREBoqIiA/Wr/4qb+d39V+SIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAsyIiA//9k=" alt="NexusPro">
+      <div>
+        <div class="brand-name">NexusPro</div>
+        <div class="brand-tagline">Экосистема роста продаж</div>
+      </div>
+    </div>
+    <div class="doc-label"><span class="doc-dot"></span>Стратегический документ · 2026–2029</div>
+    <h1 class="hero-title">От точки А<br>к точке <span class="ac">Б</span></h1>
+    <p class="hero-sub">Видение компании, стратегия роста и план действий на ближайшие три месяца</p>
+  </div>
+</header>
+
+<!-- 01 VISION -->
+<section>
+  <div class="container">
+    <div class="eyebrow">01 — Видение</div>
+    <h2 class="sec-title">NexusPro через 3 года</h2>
+    <div class="vision-lead r r1">
+      NexusPro — компания, которая владеет категорией «автоматизация продаж для малого бизнеса» в Казахстане и Центральной Азии. Это не просто интегратор CRM-систем — это партнёр по росту продаж, которого клиенты не меняют, потому что он встроен в их бизнес.
+    </div>
+    <div class="vision-grid">
+      <div class="vblock r r2">
+        <div class="vblock-title">Нишевая глубина как барьер</div>
+        <p>Компания знает бьюти-бизнес, фитнес или авторынок лучше, чем любой универсальный интегратор. Когда потенциальный клиент ищет решение — он находит NexusPro, потому что говорит на языке его бизнеса. Это создаёт барьер для конкурентов и оправдывает премиальное позиционирование.</p>
+      </div>
+      <div class="vblock r r3">
+        <div class="vblock-title">Экосистема доверия, а не продукт</div>
+        <p>LiteCRM — это экосистема, в которую клиент входит на этапе «ещё не готов» и остаётся, потому что компания растёт вместе с ним. Руководитель купил не инструмент — он купил порядок в продажах и предсказуемость результата.</p>
+      </div>
+      <div class="vblock r r4">
+        <div class="vblock-title">Культура системных продаж</div>
+        <p>NexusPro формирует культуру системных продаж в Казахстане — через образование, публичную экспертизу, кейсы и присутствие на деловых площадках. Рынок знает компанию не потому что она много тратит на рекламу — а потому что постоянно даёт ценность.</p>
+      </div>
+      <div class="vblock r r5">
+        <div class="vblock-title">Репутация через результаты</div>
+        <p>Ключевой актив — не технология, а портфель измеримых клиентских историй. Не «мы внедрили CRM», а «выручка выросла на 30%, цикл сделки сократился вдвое». Один убедительный кейс из ниши продаёт лучше любой рекламы.</p>
+      </div>
+      <div class="vblock r r6">
+        <div class="vblock-title">Статус и легитимность</div>
+        <p>Резидент Астана Хаб. Это не просто налоговые льготы — это сигнал рынку о зрелости и надёжности. Для клиента это означает: с ними безопасно работать, они серьёзный игрок, они здесь надолго.</p>
+      </div>
+      <div class="vblock r r7">
+        <div class="vblock-title">Масштаб и операционная зрелость</div>
+        <p>Бизнес работает системно и не зависит от конкретных людей. Процессы описаны, роли распределены. Через три года — первые уверенные шаги на рынках Узбекистана и Кыргызстана с репутацией, которая идёт впереди компании.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 STEPS -->
+<section>
+  <div class="container">
+    <div class="eyebrow">02 — Стратегия</div>
+    <h2 class="sec-title">10 этапов от точки А к точке Б</h2>
+    <div class="steps">
+      <div class="step r r1"><div class="step-n">01</div><div class="step-body"><div class="step-title">Диагностика</div><div class="step-desc">Честная картина текущего состояния: как работают продажи, где теряются клиенты, что реально приносит деньги, каких процессов нет. Без этого любые следующие шаги строятся на догадках.</div></div></div>
+      <div class="step r r2"><div class="step-n">02</div><div class="step-body"><div class="step-title">Фундамент</div><div class="step-desc">Формализовать всё что есть внутри: продукты на языке клиентской ценности, процесс продажи, процесс внедрения, учёт лицензий, база знаний. Компания должна уметь воспроизводить результат независимо от того, кто конкретно работает.</div></div></div>
+      <div class="step r r3"><div class="step-n">03</div><div class="step-body"><div class="step-title">Позиционирование</div><div class="step-desc">Ответить на вопрос чем компания отличается от любого другого интегратора. Не «мы внедряем CRM», а «мы строим системные продажи для малого бизнеса в конкретных нишах». Основа для всех коммуникаций.</div></div></div>
+      <div class="step r r4"><div class="step-n">04</div><div class="step-body"><div class="step-title">Нишевый фокус</div><div class="step-desc">Перестать работать для всех. Выбрать ниши где уже есть результаты, где клиент понятен и где компания говорит на языке бизнеса. Глубина в нише важнее широты охвата.</div></div></div>
+      <div class="step r r5"><div class="step-n">05</div><div class="step-body"><div class="step-title">Результаты клиентов</div><div class="step-desc">Собрать измеримые результаты каждого текущего клиента — цифры, факты, рост. Превратить в публичные кейсы. Это главный инструмент продаж и основа репутации.</div></div></div>
+      <div class="step r r6"><div class="step-n">06</div><div class="step-body"><div class="step-title">Легитимность</div><div class="step-desc">Подготовить и подать документы в Астана Хаб. Статус резидента — это налоговые льготы, которые напрямую влияют на экономику компании, и сигнал рынку о серьёзности намерений.</div></div></div>
+      <div class="step r r7"><div class="step-n">07</div><div class="step-body"><div class="step-title">Узнаваемость</div><div class="step-desc">Появиться на деловых площадках Казахстана с конкретной экспертной темой. Запустить регулярный контент — разборы по нишам, кейсы, сравнения. Рынок должен ассоциировать NexusPro с автоматизацией продаж.</div></div></div>
+      <div class="step r r8"><div class="step-n">08</div><div class="step-body"><div class="step-title">Партнёрства</div><div class="step-desc">Найти партнёров из смежных областей — маркетинговые агентства, бухгалтерские сервисы, отраслевые объединения. Самый дешёвый и надёжный канал привлечения клиентов на развивающемся рынке.</div></div></div>
+      <div class="step r r9"><div class="step-n">09</div><div class="step-body"><div class="step-title">Системные продажи</div><div class="step-desc">Процесс привлечения и удержания клиентов не должен зависеть от конкретного продажника. Скрипты, офферы под каждую нишу, чёткий путь клиента от первого контакта до повторной покупки.</div></div></div>
+      <div class="step r r10"><div class="step-n">10</div><div class="step-body"><div class="step-title">Масштаб</div><div class="step-desc">С готовой моделью, доказанными результатами и репутацией — первые шаги на рынках Узбекистана и Кыргызстана. Не с нуля, а с историей успеха которая идёт впереди компании.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 ACTION PLAN -->
+<section>
+  <div class="container">
+    <div class="eyebrow">03 — Тактика</div>
+    <h2 class="sec-title">План действий — первые 3 месяца</h2>
+    <p style="font-size:12px;color:var(--text-muted);margin-bottom:8px;">Фронт работы бизнес-аналитика. Для каждой задачи указано взаимодействие с командой.</p>
+    <p style="font-size:12px;color:var(--text-muted);margin-bottom:32px;display:flex;align-items:center;gap:8px;">
+      <svg width="12" height="12" viewBox="0 0 12 16" fill="none" style="opacity:0.5;flex-shrink:0"><circle cx="3" cy="3" r="1.5" fill="currentColor"/><circle cx="9" cy="3" r="1.5" fill="currentColor"/><circle cx="3" cy="8" r="1.5" fill="currentColor"/><circle cx="9" cy="8" r="1.5" fill="currentColor"/><circle cx="3" cy="13" r="1.5" fill="currentColor"/><circle cx="9" cy="13" r="1.5" fill="currentColor"/></svg>
+      Задачи можно перемещать между месяцами — если приоритеты изменятся, просто перетащите нужный пункт в другой блок.
+    </p>
+
+    <div class="months">
+
+      <!-- MONTH 1 -->
+      <div class="month r r1">
+        <div class="month-head">
+          <span class="month-num">Месяц 1</span>
+          <span class="month-name">Диагностика и фундамент</span>
+        </div>
+        <div class="month-body">
+          <div class="task" draggable="true">
+            <div class="task-dot"></div>
+            <div>
+              <div class="task-text">Изучить и зафиксировать текущее состояние воронки продаж</div>
+              <span class="task-with">↳ самостоятельно, Битрикс24</span>
+              <span class="task-result">→ Схема процесса со всеми разрывами</span>
+            </div>
+          </div>
+          <div class="task" draggable="true">
+            <div class="task-dot"></div>
+            <div>
+              <div class="task-text">Интервью — процесс продаж, клиенты, продукты</div>
+              <span class="task-with">↳ руководитель, продажник</span>
+              <span class="task-result">→ Реальная картина работы бизнеса</span>
+            </div>
+          </div>
+          <div class="task" draggable="true">
+            <div class="task-dot"></div>
+            <div>
+              <div class="task-text">Описать оба продукта на языке клиентской ценности — для каждого сегмента</div>
+              <span class="task-with">↳ руководитель, продажник</span>
+              <span class="task-result">→ Два документа готовы к использованию</span>
+            </div>
+          </div>
+          <div class="task" draggable="true">
+            <div class="task-dot"></div>
+            <div>
+              <div class="task-text">Зафиксировать измеримые результаты текущих клиентов</div>
+              <span class="task-with">↳ продажник, руководитель</span>
+              <span class="task-result">→ Цифры и факты — основа для кейсов</span>
+            </div>
+          </div>
+          <div class="task" draggable="true">
+            <div class="task-dot"></div>
+            <div>
+              <div class="task-text">Разработать регламент учёта и продления клиентских лицензий</div>
+              <span class="task-with">↳ руководитель</span>
+              <span class="task-result">→ Ни один срок не пропадает</span>
+            </div>
+          </div>
+          <div class="task" draggable="true">
+            <div class="task-dot"></div>
+            <div>
+              <div class="task-text">Описать процесс клиентского внедрения с ролями и сроками</div>
+              <span class="task-with">↳ руководитель, интегратор</span>
+              <span class="task-result">→ Компания воспроизводит результат стабильно</span>
+            </div>
+          </div>
+          <div class="task" draggable="true">
+            <div class="task-dot"></div>
+            <div>
+              <div class="task-text">Заложить структуру внутренней базы знаний</div>
+              <span class="task-with">↳ самостоятельно, согласование с руководителем</span>
+              <span class="task-result">→ Карта разделов и шаблоны готовы</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MONTH 2 -->
+      <div class="month r r2">
+        <div class="month-head">
+          <span class="month-num">Месяц 2</span>
+          <span class="month-name">Позиционирование и ниши</span>
+        </div>
+        <div class="month-body">
+          <div class="task" draggable="true">
+            <div class="task-dot"></div>
+            <div>
+              <div class="task-text">Сформулировать позиционирование компании</div>
+              <span class="task-with">↳ руководитель</span>
+              <span class="task-result">→ Основа для всех внешних коммуникаций</span>
+            </div>
+          </div>
+          <div class="task" draggable="true">
+            <div class="task-dot"></div>
+            <div>
+              <div class="task-text">Анализ рыночных ниш и выбор топ-3 приоритетных направлений</div>
+              <span class="task-with">↳ самостоятельно, согласование с руководителем и продажником</span>
+              <span class="task-result">→ Обоснованный выбор с профилем клиента</span>
+            </div>
+          </div>
+          <div class="task" draggable="true">
+            <div class="task-dot"></div>
+            <div>
+              <div class="task-text">Разработать ценностное предложение под каждую нишу</div>
+              <span class="task-with">↳ руководитель, продажник</span>
+              <span class="task-result">→ Набор формулировок для всех каналов</span>
+            </div>
+          </div>
+          <div class="task" draggable="true">
+            <div class="task-dot"></div>
+            <div>
+              <div class="task-text">Описать клиентский путь от первого контакта до повторной покупки</div>
+              <span class="task-with">↳ продажник, руководитель</span>
+              <span class="task-result">→ Видны точки где клиент уходит</span>
+            </div>
+          </div>
+          <div class="task" draggable="true">
+            <div class="task-dot"></div>
+            <div>
+              <div class="task-text">Описать технические возможности продуктов</div>
+              <span class="task-with">↳ интегратор</span>
+              <span class="task-result">→ Техническая часть описаний готова</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MONTH 3 -->
+      <div class="month r r3">
+        <div class="month-head">
+          <span class="month-num">Месяц 3</span>
+          <span class="month-name">Легитимность и первое присутствие</span>
+        </div>
+        <div class="month-body">
+          <div class="task" draggable="true">
+            <div class="task-dot"></div>
+            <div>
+              <div class="task-text">Изучить требования Астана Хаб и начать бизнес-план</div>
+              <span class="task-with">↳ самостоятельно</span>
+              <span class="task-result">→ Структура заполнена на 60–70%</span>
+            </div>
+          </div>
+          <div class="task" draggable="true">
+            <div class="task-dot"></div>
+            <div>
+              <div class="task-text">Сформировать финансовую модель</div>
+              <span class="task-with">↳ руководитель</span>
+              <span class="task-result">→ Финансовый раздел бизнес-плана готов</span>
+            </div>
+          </div>
+          <div class="task" draggable="true">
+            <div class="task-dot"></div>
+            <div>
+              <div class="task-text">Написать первый публичный экспертный разбор по приоритетной нише</div>
+              <span class="task-with">↳ самостоятельно, согласование с руководителем</span>
+              <span class="task-result">→ Готовый материал для публикации</span>
+            </div>
+          </div>
+          <div class="task" draggable="true">
+            <div class="task-dot"></div>
+            <div>
+              <div class="task-text">Определить 2–3 деловые площадки для первого появления</div>
+              <span class="task-with">↳ самостоятельно, руководитель</span>
+              <span class="task-result">→ Список с форматом и темой</span>
+            </div>
+          </div>
+          <div class="task" draggable="true">
+            <div class="task-dot"></div>
+            <div>
+              <div class="task-text">Найти 2–3 партнёра из смежных областей</div>
+              <span class="task-with">↳ руководитель, продажник</span>
+              <span class="task-result">→ Первые договорённости о рекомендациях</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- 04 TEAM -->
+<section>
+  <div class="container">
+    <div class="eyebrow">04 — Команда</div>
+    <h2 class="sec-title">Что потребуется от команды</h2>
+    <div class="team">
+      <div class="tcard r r1">
+        <div class="tcard-role">Руководитель</div>
+        <div class="tcard-items">
+          <div class="tcard-item">3–4 часа в месяц на интервью и согласование результатов</div>
+          <div class="tcard-item">Стратегические решения по позиционированию и нишам</div>
+          <div class="tcard-item">Финансовые данные для бизнес-плана Астана Хаб</div>
+          <div class="tcard-item">Подписание и подача документов в Астана Хаб</div>
+        </div>
+      </div>
+      <div class="tcard r r2">
+        <div class="tcard-role">Продажник</div>
+        <div class="tcard-items">
+          <div class="tcard-item">1–2 часа на интервью — реальная картина работы с клиентами</div>
+          <div class="tcard-item">Данные по результатам текущих клиентов — цифры и факты</div>
+          <div class="tcard-item">Обратная связь по ценностным предложениям</div>
+        </div>
+      </div>
+      <div class="tcard r r3">
+        <div class="tcard-role">Интегратор</div>
+        <div class="tcard-items">
+          <div class="tcard-item">Точечное участие — по техническим вопросам продуктов</div>
+          <div class="tcard-item">Описание технологий для раздела бизнес-плана</div>
+        </div>
+      </div>
+      <div class="tcard r r4">
+        <div class="tcard-role">Бухгалтер</div>
+        <div class="tcard-items">
+          <div class="tcard-item">Финансовые данные — выручка, расходы, средний чек</div>
+          <div class="tcard-item">Справка об отсутствии налоговой задолженности для Астана Хаб</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-row">
+      <div class="footer-brand">NexusPro · 2026</div>
+      <div class="footer-note">Стратегический документ · Конфиденциально</div>
+    </div>
+    <div style="margin-top:24px;">
+      <button class="pdf-btn" onclick="downloadPDF()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Скачать PDF
+      </button>
+
+      <!-- Confirmation modal -->
+      <div id="pdfModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:500;align-items:center;justify-content:center;">
+        <div style="background:var(--surface-2);border:1px solid var(--teal-border);padding:36px 40px;max-width:420px;width:90%;border-radius:3px;position:relative;">
+          <div style="font-family:'Unbounded',sans-serif;font-size:10px;color:var(--teal);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;">Скачать документ</div>
+          <div style="font-size:15px;color:var(--white);font-weight:500;margin-bottom:10px;line-height:1.4;">NexusPro — Стратегия роста 2026–2029</div>
+          <div style="font-size:13px;color:var(--text-muted);margin-bottom:28px;line-height:1.7;">Вы скачаете PDF-версию стратегического документа. Файл будет сохранён на ваше устройство.</div>
+          <div style="display:flex;gap:10px;">
+            <button class="confirm-btn" onclick="confirmDownload()" style="font-family:'Unbounded',sans-serif;font-size:10px;letter-spacing:1px;background:var(--teal);color:var(--bg-deep);border:none;padding:11px 24px;cursor:pointer;border-radius:1px;flex:1;transition:opacity 0.2s;">Скачать</button>
+            <button onclick="closeModal()" style="font-family:'Unbounded',sans-serif;font-size:10px;letter-spacing:0.5px;background:transparent;color:var(--text-muted);border:1px solid var(--border);padding:11px 20px;cursor:pointer;border-radius:1px;">Отмена</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+
+  <button class="export-btn" onclick="exportPage()">Сохранить и скачать</button>
+</div>
+
+<script>
+(function() {
+  let dragged = null;
+  let placeholder = null;
+
+  function createPlaceholder() {
+    const el = document.createElement('div');
+    el.className = 'task drag-placeholder';
+    return el;
+  }
+
+  function addHandles() {
+    document.querySelectorAll('.task[draggable]').forEach(task => {
+      if (task.querySelector('.drag-handle')) return;
+      const handle = document.createElement('div');
+      handle.className = 'drag-handle';
+      handle.innerHTML = '<svg width="12" height="16" viewBox="0 0 12 16" fill="none"><circle cx="3" cy="3" r="1.5" fill="rgba(110,130,138,0.7)"/><circle cx="9" cy="3" r="1.5" fill="rgba(110,130,138,0.7)"/><circle cx="3" cy="8" r="1.5" fill="rgba(110,130,138,0.7)"/><circle cx="9" cy="8" r="1.5" fill="rgba(110,130,138,0.7)"/><circle cx="3" cy="13" r="1.5" fill="rgba(110,130,138,0.7)"/><circle cx="9" cy="13" r="1.5" fill="rgba(110,130,138,0.7)"/></svg>';
+      task.appendChild(handle);
+    });
+  }
+
+  document.addEventListener('dragstart', function(e) {
+    const task = e.target.closest('.task[draggable]');
+    if (!task) return;
+    dragged = task;
+    setTimeout(() => task.classList.add('dragging'), 0);
+    placeholder = createPlaceholder();
+    e.dataTransfer.effectAllowed = 'move';
+  });
+
+  document.addEventListener('dragend', function(e) {
+    const task = e.target.closest('.task[draggable]');
+    if (!task) return;
+    task.classList.remove('dragging');
+    if (placeholder && placeholder.parentNode) placeholder.parentNode.removeChild(placeholder);
+    dragged = null;
+    placeholder = null;
+    document.querySelectorAll('.month-body').forEach(b => b.classList.remove('drag-over'));
+    // fix last-child borders
+    document.querySelectorAll('.month-body').forEach(body => {
+      const tasks = body.querySelectorAll('.task');
+      tasks.forEach(t => t.style.borderBottom = '');
+      if (tasks.length > 0) tasks[tasks.length-1].style.borderBottom = 'none';
+    });
+  });
+
+  document.addEventListener('dragover', function(e) {
+    e.preventDefault();
+    const body = e.target.closest('.month-body');
+    if (!body || !dragged) return;
+    document.querySelectorAll('.month-body').forEach(b => b.classList.remove('drag-over'));
+    body.classList.add('drag-over');
+
+    const afterEl = getDragAfterElement(body, e.clientY);
+    if (placeholder.parentNode) placeholder.parentNode.removeChild(placeholder);
+    if (afterEl == null) {
+      body.appendChild(placeholder);
+    } else {
+      body.insertBefore(placeholder, afterEl);
+    }
+  });
+
+  document.addEventListener('dragleave', function(e) {
+    const body = e.target.closest('.month-body');
+    if (body && !body.contains(e.relatedTarget)) {
+      body.classList.remove('drag-over');
+    }
+  });
+
+  document.addEventListener('drop', function(e) {
+    e.preventDefault();
+    const body = e.target.closest('.month-body');
+    if (!body || !dragged) return;
+    body.classList.remove('drag-over');
+
+    const afterEl = getDragAfterElement(body, e.clientY);
+    if (placeholder.parentNode) placeholder.parentNode.removeChild(placeholder);
+    if (afterEl == null) {
+      body.appendChild(dragged);
+    } else {
+      body.insertBefore(dragged, afterEl);
+    }
+    addHandles();
+  });
+
+  function getDragAfterElement(container, y) {
+    const els = [...container.querySelectorAll('.task[draggable]:not(.dragging):not(.drag-placeholder)')];
+    return els.reduce((closest, child) => {
+      const box = child.getBoundingClientRect();
+      const offset = y - box.top - box.height / 2;
+      if (offset < 0 && offset > closest.offset) {
+        return { offset, element: child };
+      }
+      return closest;
+    }, { offset: Number.NEGATIVE_INFINITY }).element;
+  }
+
+  window.addEventListener('DOMContentLoaded', addHandles);
+})();
+</script>
+
+
+
+
+<script>
+  const PDF_URL = 'https://raw.githubusercontent.com/nuriya-mir/np_strategy/main/nexuspro_strategy.pdf';
+  const PDF_FILENAME = 'NexusPro_Strategy_2026.pdf';
+
+  function downloadPDF() {
+    document.getElementById('pdfModal').style.display = 'flex';
+  }
+
+  function closeModal() {
+    document.getElementById('pdfModal').style.display = 'none';
+  }
+
+  function confirmDownload() {
+    const btn = document.querySelector('#pdfModal .confirm-btn');
+    btn.textContent = 'Загрузка...';
+    btn.disabled = true;
+
+    fetch(PDF_URL)
+      .then(res => {
+        if (!res.ok) throw new Error('Ошибка загрузки');
+        return res.blob();
+      })
+      .then(blob => {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = PDF_FILENAME;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        closeModal();
+        btn.textContent = 'Скачать';
+        btn.disabled = false;
+      })
+      .catch(() => {
+        // Fallback — open in new tab
+        window.open(PDF_URL, '_blank');
+        closeModal();
+        btn.textContent = 'Скачать';
+        btn.disabled = false;
+      });
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('pdfModal').addEventListener('click', function(e) {
+      if (e.target === this) closeModal();
+    });
+  });
+</script>
+
+</body>
+</html>
